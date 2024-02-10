@@ -15,7 +15,7 @@ const Banner = () => {
                 <div className="headline text-white text-center my-5 w-10/12 mx-auto">
                   <h1 className="my-4 text-3xl font-bold">Nice to meet you! <br /> I`m <span className="border-b-4 border-violet-800">Kristian Santoso</span></h1>
                   <p className="leading-7 mb-4 text-lg">Passionate Front-End Developer, with good Problem Solving Skill and can implement design to code.</p>
-                  <a onClick={contact} className="block text-center text-white uppercase font-bold tracking-widest border-b-4 border-violet-800 p-2 w-36 mx-auto hover:text-violet-800 mb-4">Contact Me</a>
+                  <a onClick={contact} className="block text-center text-white uppercase font-bold tracking-widest border-b-4 border-violet-800 p-2 w-36 mx-auto hover:text-violet-800 mb-4 cursor-pointer">Contact Me</a>
                 </div>
             </div>
         </section>

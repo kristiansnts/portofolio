@@ -5,7 +5,7 @@ const Projects = () => {
     return ( 
         <section className="projects mt-10 text-white">
             <h2 className="text-white text-3xl font-bold text-center py-4 mb-3">Projects</h2>
-            <a onClick={contact} className="block text-center text-white uppercase font-bold tracking-widest border-b-4 border-violet-800 p-2 w-36 mx-auto hover:text-violet-800 mb-20">Contact Me</a>
+            <a onClick={contact} className="block text-center text-white uppercase font-bold tracking-widest border-b-4 border-violet-800 p-2 w-36 mx-auto hover:text-violet-800 mb-20 cursor-pointer">Contact Me</a>
             <ul className="sm:grid sm:grid-cols-2 md:grid-cols-3 gap-4">
               {projects.map((project, index) => (
                   <li key={index} className="mb-4">
