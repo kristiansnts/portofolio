@@ -30,3 +30,20 @@ body {
     right: -50%;
     bottom: -40px;
 }
+
+@media screen and (min-width: 600px){
+    .svg-ring {
+        left: -50%;
+        height: 140px;
+    }
+
+    .circle {
+        right: -10%;
+    }
+
+    .ring-right {
+        bottom: -90px;
+        right: -20%;
+    }
+
+}
