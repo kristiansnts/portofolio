@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+
+body {
+    overflow-x: hidden;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.banner,.skills {
+    position: relative;
+}
+
+.svg-ring {
+    position: absolute;
+    width: 60%;
+    left: -30%;
+    top: 40px;
+    z-index: -2;
+    height: 80px;
+}
+
+.circle {
+    position: absolute;
+    right: -25%;
+    top: 70%;
+    z-index: -1;
+}
+
+.ring-right {
+    position: absolute;
+    right: -50%;
+    bottom: -40px;
+}
