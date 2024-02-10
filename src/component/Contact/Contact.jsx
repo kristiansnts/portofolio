@@ -9,7 +9,7 @@ const Contact = () => {
 
     return ( 
         <section className="contact mt-10 bg-white py-4">
-            <h2 className="text-white text-3xl font-bold text-center text-black py-4">Contact</h2>
+            <h2 className="text-3xl font-bold text-center text-black py-4">Contact</h2>
             <p className="w-11/12 mx-auto mb-8">I would love to hear about your project and how I could help.
               Please fill in the form, and I`ll get back to you as soon as
               possible.</p>
