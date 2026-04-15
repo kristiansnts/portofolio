@@ -84,7 +84,7 @@ export const PROJECTS: Project[] = [
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
-    company: 'Rpay',
+    company: 'Yourpay',
     title: 'Software Engineer',
     start: 'Jan 2025',
     end: 'Present',
