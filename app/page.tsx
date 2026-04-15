@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'motion/react'
-import { XIcon } from 'lucide-react'
+import { XIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { Spotlight } from '@/components/ui/spotlight'
 import { Magnetic } from '@/components/ui/magnetic'
 import {
@@ -19,6 +19,9 @@ import {
   EMAIL,
   SOCIAL_LINKS,
 } from './data'
+import { useLanguage } from '@/lib/language-context'
+import { translations } from '@/lib/translations'
+import { useState } from 'react'
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -39,11 +42,24 @@ const TRANSITION_SECTION = {
   duration: 0.3,
 }
 
-type ProjectVideoProps = {
-  src: string
+type ProjectImageProps = {
+  photos: string[]
+  alt: string
 }
 
-function ProjectVideo({ src }: ProjectVideoProps) {
+function ProjectImage({ photos, alt }: ProjectImageProps) {
+  const [index, setIndex] = useState(0)
+
+  const prev = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setIndex((i) => (i - 1 + photos.length) % photos.length)
+  }
+
+  const next = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setIndex((i) => (i + 1) % photos.length)
+  }
+
   return (
     <MorphingDialog
       transition={{
@@ -53,23 +69,58 @@ function ProjectVideo({ src }: ProjectVideoProps) {
       }}
     >
       <MorphingDialogTrigger>
-        <video
-          src={src}
-          autoPlay
-          loop
-          muted
-          className="aspect-video w-full cursor-zoom-in rounded-xl"
+        <img
+          src={photos[0]}
+          alt={alt}
+          className="aspect-video w-full cursor-zoom-in rounded-xl object-cover"
         />
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
-        <MorphingDialogContent className="relative aspect-video rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
-          <video
-            src={src}
-            autoPlay
-            loop
-            muted
-            className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh]"
-          />
+        <MorphingDialogContent className="relative w-[95vw] max-w-6xl rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
+          <div className="relative overflow-hidden rounded-xl">
+            {/* Sliding track */}
+            <div
+              className="flex transition-transform duration-300 ease-in-out"
+              style={{ transform: `translateX(-${index * 100}%)` }}
+            >
+              {photos.map((photo, i) => (
+                <img
+                  key={i}
+                  src={photo}
+                  alt={`${alt} ${i + 1}`}
+                  className="h-[80vh] w-full flex-shrink-0 object-contain"
+                />
+              ))}
+            </div>
+
+            {photos.length > 1 && (
+              <>
+                <button
+                  onClick={prev}
+                  className="absolute top-1/2 left-2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition hover:bg-black/60"
+                >
+                  <ChevronLeftIcon className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={next}
+                  className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition hover:bg-black/60"
+                >
+                  <ChevronRightIcon className="h-4 w-4" />
+                </button>
+                <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
+                  {photos.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={(e) => { e.stopPropagation(); setIndex(i) }}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === index ? 'w-4 bg-white' : 'w-1.5 bg-white/50'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
         </MorphingDialogContent>
         <MorphingDialogClose
           className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1"
@@ -124,6 +175,9 @@ function MagneticSocialLink({
 }
 
 export default function Personal() {
+  const { language } = useLanguage()
+  const t = translations[language]
+
   return (
     <motion.main
       className="space-y-18"
@@ -137,8 +191,7 @@ export default function Personal() {
       >
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
-            Focused on creating impactfull and great web experiences.
-            Bridging the gap between need and solution.
+            {t.intro}
           </p>
         </div>
       </motion.section>
@@ -147,12 +200,20 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
+        <div className="mb-5 flex items-center justify-between">
+          <h3 className="text-lg font-medium">{t.selectedProjects}</h3>
+          <Link
+            href="/projects"
+            className="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          >
+            {t.showAll} →
+          </Link>
+        </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {PROJECTS.map((project) => (
+          {PROJECTS.slice(0, 2).map((project) => (
             <div key={project.name} className="space-y-2">
               <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                <ProjectVideo src={project.video} />
+                <ProjectImage photos={project.photos} alt={project.name} />
               </div>
               <div className="px-1">
                 <a
@@ -164,7 +225,7 @@ export default function Personal() {
                   <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full"></span>
                 </a>
                 <p className="text-base text-zinc-600 dark:text-zinc-400">
-                  {project.description}
+                  {language === 'en' ? project.descriptionEn : project.description}
                 </p>
               </div>
             </div>
@@ -176,7 +237,7 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Work Experience</h3>
+        <h3 className="mb-5 text-lg font-medium">{t.workExperience}</h3>
         <div className="flex flex-col space-y-2">
           {WORK_EXPERIENCE.map((job) => (
             <a
@@ -250,9 +311,9 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Connect</h3>
+        <h3 className="mb-5 text-lg font-medium">{t.connect}</h3>
         <p className="mb-5 text-zinc-600 dark:text-zinc-400">
-          Feel free to contact me at{' '}
+          {t.connectText}{' '}
           <a className="underline dark:text-zinc-300" href={`mailto:${EMAIL}`}>
             {EMAIL}
           </a>

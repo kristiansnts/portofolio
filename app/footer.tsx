@@ -73,7 +73,7 @@ export function Footer() {
         <a href="https://motion-primitives.com/" target="_blank">
           <TextLoop className="text-xs text-zinc-500">
             <span>© 2024 Kristian.</span>
-            <span>Built with Motion-Primitives.</span>
+            <span>Impactfull Software Engineer</span>
           </TextLoop>
         </a>
         <div className="text-xs text-zinc-400">
