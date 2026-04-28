@@ -32,6 +32,18 @@ type SocialLink = {
 
 export const PROJECTS: Project[] = [
   {
+    name: 'PT Cahaya Indo Gemilang',
+    description:
+      'PT Cahaya Indo Gemilang adalah Solusi Pengelolaan Limbah B3 & TENORM/MIR Profesional',
+    descriptionEn:
+      'PT Cahaya Indo Gemilang is a Professional B3 & TENORM/MIR Waste Management Solution',
+    link: 'https://cahayaindogemilang.co.id',
+    photos: ['/CahayaIndoGemilang/landingpage.png'],
+    id: 'project1',
+    client: 'CEO PT Cahaya Indo Gemilang',
+    totalUsers: 'Private Use',
+  },
+  {
     name: 'Arunatrans',
     description:
       'Aruna Trans Jogja hadir setiap hari dengan penjemputan dari hotel atau alamat Anda di Yogyakarta, Magelang, Surakarta, maupun Dieng. Satu orang pun sudah bisa langsung bergabung — tanpa perlu mengumpulkan rombongan.',
@@ -39,7 +51,7 @@ export const PROJECTS: Project[] = [
       'Aruna Trans Jogja operates daily with pick-up from your hotel or address in Yogyakarta, Magelang, Surakarta, or Dieng. Even a single person can join directly — no need to gather a group.',
     link: 'https://arunatransjogja.com',
     photos: ['/ArunaTrans/landingpage.png'],
-    id: 'project1',
+    id: 'project2',
     client: 'Owner Aruna Trans Jogja',
     totalUsers: '100+ users per day',
   },
@@ -56,7 +68,7 @@ export const PROJECTS: Project[] = [
       '/MSSystem/pemasukan-cabang.png',
       '/MSSystem/cabang.png',
     ],
-    id: 'project2',
+    id: 'project3',
     client: 'Owner MSSystem',
     totalUsers: 'Private Use',
   },
@@ -66,7 +78,7 @@ export const PROJECTS: Project[] = [
     descriptionEn: 'A Company Correspondence Management System to simplify the management of incoming and outgoing letters, and archives.',
     link: '#',
     photos: [],
-    id: 'project3',
+    id: 'project4',
     client: 'Administration Director of Science Society',
     totalUsers: 'Private Use',
   },
@@ -76,7 +88,7 @@ export const PROJECTS: Project[] = [
     descriptionEn: 'A Database System of Persekutuan & Pelayanan Hamba Tuhan Garis Depan (PPHTGD) to simplify the management of users, access rights, and activities.',
     link: '#',
     photos: [],
-    id: 'project4',
+    id: 'project5',
     client: 'PPHTGD',
     totalUsers: '4000+ users',
   },
