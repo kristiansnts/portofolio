@@ -31,3 +31,46 @@ export async function getSiteSetting(key: string) {
     where: { key },
   })
 }
+
+export async function getPublishedClassSession(
+  classSlug: string,
+  sessionSlug: string,
+) {
+  return prisma.classSession.findFirst({
+    where: {
+      slug: sessionSlug,
+      published: true,
+      class: {
+        slug: classSlug,
+        published: true,
+      },
+    },
+    include: {
+      class: {
+        select: {
+          name: true,
+          slug: true,
+        },
+      },
+    },
+  })
+}
+
+export async function getPublishedClassWithSessions(classSlug: string) {
+  return prisma.class.findFirst({
+    where: {
+      slug: classSlug,
+      published: true,
+    },
+    include: {
+      sessions: {
+        where: { published: true },
+        orderBy: { sortOrder: 'asc' },
+        select: {
+          slug: true,
+          title: true,
+        },
+      },
+    },
+  })
+}

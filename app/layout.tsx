@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist_Mono, Inter_Tight } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { ThemeProvider } from 'next-themes'
 import { LanguageProvider } from '@/lib/language-context'
@@ -48,6 +49,7 @@ export default function RootLayout({
             </div>
           </LanguageProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )

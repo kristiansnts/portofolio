@@ -8,6 +8,7 @@ import {
   SOCIAL_LINKS,
   WORK_EXPERIENCE,
 } from '../app/data'
+import { LINUX_CLI_CLASS, SESI_1_LINUX_CLI } from '../lib/class-seed-data'
 
 const connectionString = process.env.DATABASE_URL
 
@@ -134,6 +135,50 @@ async function main() {
       },
     })
   }
+
+  const linuxCliClass = await prisma.class.upsert({
+    where: { slug: LINUX_CLI_CLASS.slug },
+    update: {
+      name: LINUX_CLI_CLASS.name,
+      description: LINUX_CLI_CLASS.description,
+      published: true,
+      sortOrder: 0,
+    },
+    create: {
+      slug: LINUX_CLI_CLASS.slug,
+      name: LINUX_CLI_CLASS.name,
+      description: LINUX_CLI_CLASS.description,
+      published: true,
+      sortOrder: 0,
+    },
+  })
+
+  await prisma.classSession.upsert({
+    where: {
+      classId_slug: {
+        classId: linuxCliClass.id,
+        slug: SESI_1_LINUX_CLI.slug,
+      },
+    },
+    update: {
+      title: SESI_1_LINUX_CLI.title,
+      description: SESI_1_LINUX_CLI.description,
+      content: SESI_1_LINUX_CLI.content,
+      wiki: SESI_1_LINUX_CLI.wiki,
+      published: true,
+      sortOrder: 0,
+    },
+    create: {
+      classId: linuxCliClass.id,
+      slug: SESI_1_LINUX_CLI.slug,
+      title: SESI_1_LINUX_CLI.title,
+      description: SESI_1_LINUX_CLI.description,
+      content: SESI_1_LINUX_CLI.content,
+      wiki: SESI_1_LINUX_CLI.wiki,
+      published: true,
+      sortOrder: 0,
+    },
+  })
 }
 
 main()
