@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist_Mono, Inter_Tight } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from 'next-themes'
 import { LanguageProvider } from '@/lib/language-context'
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     'Software Engineer, Manager at Science Society Branch Ngawi, and a Person In Control of LevelUP Branch Ngawi',
 }
 
-const geist = Geist({
-  variable: '--font-geist',
+const interTight = Inter_Tight({
+  variable: '--font-inter-tight',
   subsets: ['latin'],
 })
 
@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
+        className={`${interTight.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
       >
         <ThemeProvider
           enableSystem={true}

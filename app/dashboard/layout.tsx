@@ -14,7 +14,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="mx-auto min-h-screen w-full max-w-4xl px-4 py-10">
+    <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20 pb-20">
       <DashboardNav email={session.email} role={session.role} />
       {children}
     </div>

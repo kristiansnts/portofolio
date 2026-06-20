@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { TextEffect } from '@/components/ui/text-effect'
 
 type DashboardNavProps = {
   email: string
@@ -10,6 +11,7 @@ type DashboardNavProps = {
 
 export function DashboardNav({ email, role }: DashboardNavProps) {
   const router = useRouter()
+  const pathname = usePathname()
 
   async function handleLogout() {
     await fetch('/api/auth/logout', { method: 'POST' })
@@ -17,30 +19,30 @@ export function DashboardNav({ email, role }: DashboardNavProps) {
     router.refresh()
   }
 
+  const isSettings = pathname.startsWith('/dashboard/settings')
+
   return (
-    <header className="mb-8 flex items-center justify-between border-b border-zinc-200 pb-6 dark:border-zinc-800">
+    <header className="mb-8 flex items-center justify-between">
       <div>
-        <Link
-          href="/dashboard"
-          className="text-lg font-medium text-zinc-900 dark:text-zinc-50"
-        >
+        <Link href="/dashboard" className="font-medium text-black dark:text-white">
           Dashboard
         </Link>
-        <p className="text-sm text-zinc-500">
-          {email} · {role}
-        </p>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center rounded-full bg-zinc-100 p-1 text-sm dark:bg-zinc-800">
         <Link
-          href="/"
-          className="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
+          href="/dashboard/settings"
+          className={`rounded-full px-3 py-1 transition-colors duration-200 ${
+            isSettings
+              ? 'bg-white font-medium text-zinc-900 shadow-sm dark:bg-zinc-950 dark:text-zinc-50'
+              : 'text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200'
+          }`}
         >
-          View site
+          Settings
         </Link>
         <button
           type="button"
           onClick={handleLogout}
-          className="rounded-lg border border-zinc-200 px-3 py-1.5 text-sm text-zinc-700 transition hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-900"
+          className="rounded-full px-3 py-1 text-zinc-500 transition-colors duration-200 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
         >
           Logout
         </button>
