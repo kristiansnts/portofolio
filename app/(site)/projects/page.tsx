@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'motion/react'
 import Link from 'next/link'
-import { PROJECTS } from '../data'
+import { PROJECTS } from '../../data'
 import { useLanguage } from '@/lib/language-context'
 import { translations } from '@/lib/translations'
 

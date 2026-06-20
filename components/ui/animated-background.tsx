@@ -4,11 +4,21 @@ import { AnimatePresence, Transition, motion } from 'motion/react'
 import {
   Children,
   cloneElement,
+  isValidElement,
   ReactElement,
-  useEffect,
   useState,
   useId,
 } from 'react'
+
+type AnimatedChildProps = {
+  'data-id': string
+  'data-checked'?: string
+  className?: string
+  children?: React.ReactNode
+  onClick?: () => void
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
+}
 
 export type AnimatedBackgroundProps = {
   children:
@@ -29,24 +39,26 @@ export function AnimatedBackground({
   transition,
   enableHover = false,
 }: AnimatedBackgroundProps) {
-  const [activeId, setActiveId] = useState<string | null>(null)
+  const [uncontrolledActiveId, setUncontrolledActiveId] = useState<string | null>(
+    defaultValue ?? null,
+  )
+  const isControlled = defaultValue !== undefined
+  const activeId = isControlled ? defaultValue : uncontrolledActiveId
   const uniqueId = useId()
 
   const handleSetActiveId = (id: string | null) => {
-    setActiveId(id)
-
-    if (onValueChange) {
-      onValueChange(id)
+    if (!isControlled) {
+      setUncontrolledActiveId(id)
     }
+
+    onValueChange?.(id)
   }
 
-  useEffect(() => {
-    if (defaultValue !== undefined) {
-      setActiveId(defaultValue)
+  return Children.map(children, (child, index) => {
+    if (!isValidElement<AnimatedChildProps>(child)) {
+      return child
     }
-  }, [defaultValue])
 
-  return Children.map(children, (child: any, index) => {
     const id = child.props['data-id']
 
     const interactionProps = enableHover

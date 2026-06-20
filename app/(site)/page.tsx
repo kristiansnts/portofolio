@@ -11,14 +11,12 @@ import {
   MorphingDialogContainer,
 } from '@/components/ui/morphing-dialog'
 import Link from 'next/link'
-import { AnimatedBackground } from '@/components/ui/animated-background'
 import {
   PROJECTS,
   WORK_EXPERIENCE,
-  BLOG_POSTS,
   EMAIL,
   SOCIAL_LINKS,
-} from './data'
+} from '../data'
 import { useLanguage } from '@/lib/language-context'
 import { translations } from '@/lib/translations'
 import { useState } from 'react'
